@@ -1,0 +1,3 @@
+The first and third examples show the dates from which the sentinel data is available to download
+The second example shows the date when precipitation occurred.
+
