@@ -2,34 +2,12 @@ import warnings
 warnings.filterwarnings('ignore')
 import matplotlib.pyplot as plt
 
-
-from download import SentinelRequester
-import json
 import os
 import pandas as pd
-
-root = './data/sentinel_data'
-geojson_path = os.path.join(root, 'geojson_files', '39.978022_48.076133.geojson')
-
-date_path = os.path.join(root, 'dates', 'dates.json')
-tiff_path = os.path.join(root, 'downloaded_tiff')
-
-dates = json.load(open(date_path))
-dates = pd.DataFrame(dates, columns=['date_1', 'date_2', 'date_3'])
-
-foldernames = os.listdir(tiff_path)
-foldernames.sort()
-
-from typing import List, Tuple, Dict
-
-import os
-import json
 import matplotlib.pyplot as plt
 import numpy as np
 # from shapely import Point, Polygon
-import rasterio
-import geopandas as gpd
-import torch
+# import rasterio
 
 from models import dubois
 from utils import (
