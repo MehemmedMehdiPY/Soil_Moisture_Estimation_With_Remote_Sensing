@@ -1,9 +1,7 @@
-import os
 import pandas as pd
 from datetime import datetime, timedelta
-from typing import Tuple, List
 
-def get_weather(df: pd.DataFrame, start_date: str):
+def get_weather(df: pd.DataFrame, start_date: str) -> pd.DataFrame:
     """
     The function should return precipitation samples from IBM weather dataset.
     Columns you need are:
@@ -25,4 +23,9 @@ def get_weather(df: pd.DataFrame, start_date: str):
     When indexing, you might get considerably more than 7 samples since hours are also considered. 
     Use groupby method by pd.DataFrame to estimate sum of precipitation on each day.
     """
-    pass
+    start_date = datetime.strptime(start_date, "%Y.%m.%d").date()
+    end_date = start_date + timedelta(days=6)
+    sample = df.loc[(df['validDate'] >= start_date) & (df['validDate'] <= end_date)][['validDate', 'precip1Hour']]
+    sample = sample.groupby('validDate')['precip1Hour'].sum()
+    return sample
+

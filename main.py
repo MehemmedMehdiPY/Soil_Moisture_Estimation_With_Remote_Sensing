@@ -13,7 +13,7 @@ from models import dubois
 from utils import (
     ANGLE,
     get_sar,
-    get_weather
+    get_weather,
     )
 from preprocessing import free_outliers
 
@@ -31,7 +31,6 @@ class Processor():
 
     def get_sm(self, path_sar: str) -> np.ndarray:
         """Obtain Soil Moisture Map from Dubois model"""
-
         (vv, vh), src = get_sar(path_sar=path_sar)
         sm = dubois(vv=vv, vh=vh, angle=ANGLE)
         sm = free_outliers(sm[None], whis=1.5)[0]
@@ -42,6 +41,9 @@ class Processor():
     def read_weather(self):
         """Read IBM Weather data"""
         df = pd.read_csv(self.path_weather)
+        df['validTimeUtc'] = pd.to_datetime(df['validTimeUtc'])
+        df['validDate'] = df['validTimeUtc']
+        df['validDate'] = df['validDate'].dt.date
         return df
 
     def get_weather(self, start_date: str):
@@ -65,6 +67,9 @@ if __name__ == '__main__':
 
     # Create a processor
     processor = Processor(path_weather=PATH_IBM_WEATHER)
+
+    sample = processor.get_weather(start_date=start_date)
+    print(sample)
 
     sar_start, _ = processor.get_sm(start_date_path)
     sar_end, _ = processor.get_sm(end_date_path)
