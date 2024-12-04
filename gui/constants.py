@@ -1,0 +1,1 @@
+CITIES = ["Agcabedi", "Goranboy", "Imishli", "Mingachevir", "Saatli", "Sabirabad", "Xizi"]
