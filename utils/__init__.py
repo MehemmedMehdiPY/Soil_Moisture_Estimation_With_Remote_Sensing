@@ -6,5 +6,6 @@ from .preprocessing import (
     ANGLE,
     K
     )
+from .postprocessing import apply_red2yellow_filter, create_random_mask
 from .color_mapping import transform2rgb
 from .image_conversion import convert2image

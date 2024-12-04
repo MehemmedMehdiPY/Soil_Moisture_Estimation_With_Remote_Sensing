@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow, QWidget, QPushButton, QListWidget, QListWidgetItem, QAbstractItemView, QVBoxLayout, QMessageBox
 from .constants import CITIES
 import os
+import numpy as np
 import matplotlib.pyplot as plt
 from time import sleep
 import sys
@@ -12,6 +13,7 @@ from utils import (
     transform2rgb,
     convert2image,
     ANGLE,
+    apply_red2yellow_filter
 )
 
 class LaunchWIndow(QMainWindow):
@@ -76,8 +78,18 @@ class LaunchWIndow(QMainWindow):
         sm = Dubois(vv=vv, vh=vh, angle=ANGLE)
         sm = free_outliers(sm[None], whis=1.5)[0]
         sm[sm < 0.2] = 0.2
-        sm_mapped = transform2rgb(sm)
-        image = convert2image(sm_mapped)
+        sm_mapped_before = transform2rgb(sm)
+        sm_mapped_after = apply_red2yellow_filter(sm_mapped_before, f=0.5)
+
+        image = self.combine_images(sm_mapped_before, sm_mapped_after)
+        image = convert2image(image)
+        
+        return image
+
+    def combine_images(self, image_1, image_2):
+        image_1.shape[0]
+        border = np.zeros((image_1.shape[0], 20, 3))
+        image = np.concatenate((image_1, border, image_2), axis=1)
         return image
 
     def get_tiff_path(self, choice_idx):
