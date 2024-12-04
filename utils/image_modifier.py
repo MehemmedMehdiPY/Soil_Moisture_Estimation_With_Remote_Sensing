@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import matplotlib.pyplot as plt
 
 def apply_red_filter(image, perc_range = (0.75, 0.9)):
     """
@@ -15,8 +16,8 @@ def apply_red_filter(image, perc_range = (0.75, 0.9)):
     if not isinstance(image, np.ndarray):
         raise TypeError("The image must be a NumPy array.")
     
-    # Get the mask for red pixels (where red channel > green and blue channels)
-    red_mask = (image[:, :, 0] > 100) & (image[:, :, 1] < 100) (image[:, :, 2] < 100)
+    # Get the mask for red pixels (where red channel > green and blue channels), sometimes the pixel cant be purely red.
+    red_mask = (image[:, :, 0] > 100) & (image[:, :, 1] < 100) &(image[:, :, 2] < 100)
     
     # Extract the indices of red pixels
     red_pixel_indices = np.argwhere(red_mask)
