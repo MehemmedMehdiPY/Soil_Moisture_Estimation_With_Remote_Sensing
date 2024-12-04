@@ -5,4 +5,4 @@ The repo hosts a user-friendly app to support Soil Moisture estimation in remote
 Check main.py for hands-on experience.
 
 # Mathematical Background
-We use Dubois model to approximately estimate soil moisture with VV and VH techniques ([Dubois, 1995](https://ieeexplore.ieee.org/document/406677)).
+We use Dubois model to approximately estimate soil moisture with VV and VH polarization techniques ([Dubois, 1995](https://ieeexplore.ieee.org/document/406677)).
