@@ -9,6 +9,7 @@ def create_random_mask(size: int, f: float) -> np.ndarray:
     mask_0 = np.zeros(size_0)
 
     mask = np.concatenate((mask_0, mask_1))
+    np.random.seed(42)
     np.random.shuffle(mask)
     
     return mask
